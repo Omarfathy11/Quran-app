@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/colors/colors.dart';
 import 'package:quran/screens/homepage.dart';
+import 'package:quran/screens/layoutsccen.dart';
 
 
 class SplashScreen extends StatelessWidget {
@@ -58,7 +59,7 @@ class SplashScreen extends StatelessWidget {
                             behavior: HitTestBehavior.opaque,
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
+                                builder: (context) => const LayoutScreen(),
                               ));
                             },
                             child: Container(

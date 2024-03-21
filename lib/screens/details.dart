@@ -1,24 +1,45 @@
 import 'dart:convert';
-
+import 'dart:ffi';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/colors/colors.dart';
 import 'package:quran/models/ayat.dart';
 import 'package:quran/models/surah.dart';
 
-class DetailScreen extends StatelessWidget {
+import 'package:http/http.dart' as http;
+
+class DetailScreen extends StatefulWidget {
   final int noSurat;
   const DetailScreen({super.key, required this.noSurat});
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool isPlaying = false;
+
+  Duration duration = Duration.zero;
+
+  Duration position = Duration.zero;
+  Future<List<String>> fetchAudioUrls() async {
+    final response = await http.get(Uri.parse('https://equran.id/api/surat/'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final List<String> audio = List<String>.from(data['audio']);
+      return audio;
+    } else {
+      throw Exception('Failed to fetch audio data from API');
+    }
+  }
 
   Future<Surah> _getDetailSurah() async {
-    var data = await Dio().get("https://equran.id/api/surat/$noSurat");
+    var data = await Dio().get("https://equran.id/api/surat/${widget.noSurat}");
     return Surah.fromJson(json.decode(data.toString()));
   }
 
+  @override
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Surah>(
@@ -44,9 +65,10 @@ class DetailScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: ListView.separated(
                   itemBuilder: (context, index) => _ayatItem(
+                      surah: surah,
                       ayat: surah.ayat!
-                          .elementAt(index + (noSurat == 1 ? 1 : 0))),
-                  itemCount: surah.jumlahAyat + (noSurat == 1 ? -1 : 0),
+                          .elementAt(index + (widget.noSurat == 1 ? 1 : 0))),
+                  itemCount: surah.jumlahAyat + (widget.noSurat == 1 ? -1 : 0),
                   separatorBuilder: (context, index) => Container(),
                 ),
               ),
@@ -55,7 +77,7 @@ class DetailScreen extends StatelessWidget {
         }));
   }
 
-  Widget _ayatItem({required Ayat ayat}) => Padding(
+  Widget _ayatItem({required Ayat ayat, required Surah surah}) => Padding(
         padding: const EdgeInsets.only(top: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -80,23 +102,25 @@ class DetailScreen extends StatelessWidget {
                     )),
                   ),
                   const Spacer(),
-                  const Icon(
+                  Icon(
                     Icons.share_outlined,
-                    color: Colors.white,
+                    color: primary,
                   ),
                   const SizedBox(
                     width: 16,
                   ),
-                  const Icon(
-                    Icons.play_arrow_outlined,
-                    color: Colors.white,
-                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.play_arrow_outlined,
+                        color: primary,
+                      )),
                   const SizedBox(
                     width: 16,
                   ),
-                  const Icon(
+                  Icon(
                     Icons.bookmark_outline,
-                    color: Colors.white,
+                    color: primary,
                   ),
                 ],
               ),
@@ -115,10 +139,6 @@ class DetailScreen extends StatelessWidget {
             const SizedBox(
               height: 16,
             ),
-            Text(
-              ayat.idn,
-              style: GoogleFonts.poppins(color: text, fontSize: 16),
-            )
           ],
         ),
       );
@@ -167,13 +187,6 @@ class DetailScreen extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 4,
-                ),
-                Text(
-                  surah.arti,
-                  style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16),
                 ),
                 Divider(
                   color: Colors.white.withOpacity(.35),
@@ -235,7 +248,7 @@ class DetailScreen extends StatelessWidget {
             width: 24,
           ),
           Text(
-            surah.namaLatin,
+            surah.nama,
             style:
                 GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
           ),
