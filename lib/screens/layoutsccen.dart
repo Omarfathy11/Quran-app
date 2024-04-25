@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quran/colors/colors.dart';
 import 'package:quran/screens/hadith_screen.dart';
 import 'package:quran/screens/homepage.dart';
+import 'package:quran/screens/sebha_screen.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -17,7 +18,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
   int selctedindex = 0;
      List<Widget> widgetspages = [
         HomeScreen(),
-          HadithScreen()
+          HadithScreen(),
+          SebhaScreen(),
       ];
   @override
   Widget build(BuildContext context) {

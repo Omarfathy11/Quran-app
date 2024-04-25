@@ -61,6 +61,7 @@ class HadithScreen extends StatelessWidget {
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.white,
+                                      
                                     ),
                                     child: Text('${hadithdata[index]['number']}',style: const TextStyle(color: Colors.black, fontSize: 15),),
                                     

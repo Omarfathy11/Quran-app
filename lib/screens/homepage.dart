@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quran/colors/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quran/models/hadith.dart';
-import 'package:quran/screens/hadith_screen.dart';
+import 'package:quran/screens/constants.dart';
 import 'package:quran/tabs/hijp_tab.dart';
 import 'package:quran/tabs/page_tab.dart';
 import 'package:quran/tabs/surah_tab.dart';
@@ -22,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     
        
         backgroundColor: background,
         appBar: AppBar(
