@@ -16,7 +16,7 @@ class LayoutScreen extends StatefulWidget {
 
 class _LayoutScreenState extends State<LayoutScreen> {
   int selctedindex = 0;
-     List<Widget> widgetspages = [
+     List<Widget> widgetspages = const[
         HomeScreen(),
           HadithScreen(),
           SebhaScreen(),
@@ -46,9 +46,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
           _bottomBarItem(icon: "assets/svgs/quran-icon.svg", label: "quran",),
           _bottomBarItem(icon: "assets/svgs/doa-icon.svg", label: "Hadith",),
           _bottomBarItem(icon: "assets/svgs/pray-icon.svg", label: "prayer"),
-          _bottomBarItem(icon: "assets/svgs/lamp-icon.svg", label: "Tips"),
-          _bottomBarItem(
-              icon: "assets/svgs/bookmark-icon.svg", label: "bookmark"),
+          
         ],
       );
 

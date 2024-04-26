@@ -15,7 +15,7 @@ class Zaker extends StatelessWidget {
         body: Center(
           child: Container(
             
-              height: 200,
+              height: 250,
               width: double.infinity,
               padding:const EdgeInsets.all(15.0),
               decoration: BoxDecoration(color: Colors.black.withOpacity(0.4)),
@@ -23,7 +23,7 @@ class Zaker extends StatelessWidget {
                 heightFactor: 0.1,
                 child: Text(
                   textAlign: TextAlign.right,
-                  '    سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله سبحان الله',
+                  'لا إله إلّا أنتَ سبحانك إنّي كنت من الظالمين .. اللّهم إنّي أسالك بأن لك الحمد لا إله إلّا أنتَ وحدك لا شريك لك، المنان يا بديع السموات والأرض ياذا الجلال والإكرام، يا حي يا قيوم إنّي أسألك الجنة وأعوذ بك من النار. اللّهم إنك عفو كريم تحب العفو فاعفُ عني. اللّهم أرزقني حُبك وحُب من ينفعني حُبّهُ عندك.',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               )),

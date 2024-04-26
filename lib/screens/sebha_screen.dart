@@ -14,16 +14,30 @@ class SebhaScreen extends StatefulWidget {
 }
 
 class _SebhaScreenState extends State<SebhaScreen> {
-
-  int _counter = 0;
-
-  @override
-  void _incrementCounter() {
+  final List<String> _azkar = [
+    "سبحان الله",
+    "الحمدلله",
+    "لا اله إلا الله",
+    "الله أكبر",
+    "لا حول ولا قوة إلا بالله"
+  ];
+   void _incrementCounter() {
     setState(() {
-          _counter++;
-
+      _counter++;
+      if (_counter == 34) {
+        _counter = 0;
+        _currentIndex = (_currentIndex + 1) % _azkar.length;
+      }
     });
   }
+
+  double _turns = 0.0;
+
+  int _counter = 0;
+    int _currentIndex = 0;
+
+
+  
 
   void _ressetCounter(){
     setState(() {
@@ -56,20 +70,38 @@ class _SebhaScreenState extends State<SebhaScreen> {
           ],
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:  <Widget>[
-            Text(
-              ' $_counter',
-              style: const TextStyle(fontSize: 80, color: Colors.white),
+      body: Column(
+        children: [
+           Stack(
+      alignment: Alignment.topCenter,
+      children: [
+         AnimatedRotation(
+              turns: _turns,
+              duration: const Duration(
+                milliseconds: 350,
+              ),
+              child: SizedBox(
+                child: Image.asset(
+                     "assets/images/body_sebha_dark.png",color: Colors.white,
+                    ))
+              ),
+        ]),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:  <Widget>[
+                Text(
+                  ' $_counter',
+                  style: const TextStyle(fontSize: 80, color: Colors.white),
+                ),
+                Text(
+                  _azkar[_currentIndex],
+                  style:const TextStyle(fontSize: 50, color: Colors.white),
+                ),
+              ],
             ),
-           const Text(
-              'عدد التسبيح',
-              style: TextStyle(fontSize: 50, color: Colors.white),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: Stack(
         children:  <Widget>[
@@ -87,6 +119,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
             alignment: const Alignment(0.1,0.7),
             child:FloatingActionButton.extended(backgroundColor: Colors.deepPurpleAccent,onPressed:() {
                 _incrementCounter();
+                 _turns += 0.03;
               }, label: const Text('تسبيح',style: TextStyle(fontSize: 20),),
               icon: const Icon(Icons.fingerprint,),), 
           ),
@@ -94,7 +127,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
             alignment:Alignment.bottomRight,
             child: FloatingActionButton.extended(backgroundColor: Colors.deepPurpleAccent,onPressed:() {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> const Zaker()));
-              }, label: const Text('ذكر',style: TextStyle(fontSize: 20),),
+              }, label: const Text('دعاء',style: TextStyle(fontSize: 20),),
               icon: const Icon(Icons.book,),),
 
           )

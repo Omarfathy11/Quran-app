@@ -41,6 +41,8 @@ dependencies:
   dio: ^5.4.0
   shared_preferences: ^2.2.0
   http: ^0.13.5
+  provider: ^6.1.2
+
   
   
 
@@ -70,6 +72,7 @@ flutter:
   assets:
     - assets/svgs/
     - assets/datas/
+    - assets/images/
     
   #   - images/a_dot_ham.jpeg
 
