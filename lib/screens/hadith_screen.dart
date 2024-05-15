@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/colors/colors.dart';
 
 class HadithScreen extends StatelessWidget {
@@ -26,11 +26,11 @@ class HadithScreen extends StatelessWidget {
             ),
             Text(
               " الحديث الشريف",
-              style: GoogleFonts.poppins(fontSize: 30),
+              style: TextStyle(fontSize: 30.sp,color:  Colors.blueGrey),
             ),
           
-            const SizedBox(
-              width: 24,
+             SizedBox(
+              width: 24.w,
             ),
           ],
         ),
@@ -67,7 +67,7 @@ class HadithScreen extends StatelessWidget {
                                     
                                   ),
                                   Text('${hadithdata[index]['arab']}',style: const TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.normal),),
-                                   const SizedBox(height: 12,),
+                                    SizedBox(height: 12.h,),
                               ],
                               
                             ),

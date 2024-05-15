@@ -12,7 +12,6 @@ saveBookMark (surah,ayah)async{
 }
 
 readBookmark() async {
-  print("read book mark called");
   final prefs = await SharedPreferences.getInstance();
   try {
     bookmarkedAyah = prefs.getInt('ayah')!;

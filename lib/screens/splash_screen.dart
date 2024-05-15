@@ -1,86 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/colors/colors.dart';
-import 'package:quran/screens/homepage.dart';
 import 'package:quran/screens/layoutsccen.dart';
-
+import 'dart:async';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Timer( const Duration(seconds: 5), () {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const LayoutScreen(),
+      ));
+    });
+
     return Scaffold(
       backgroundColor: background,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Quran App',
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28),
+      body: Center(
+        child: ListView(
+          children: [
+            Center(
+              child: Text(
+                'Quran App',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35.sp,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 16.h,
+            ),
+            Text(
+              'Learn Quran and\nRecite once everyday',
+              style: TextStyle(fontSize: 18.sp, color: text),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 48.h,
+            ),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  height: 250.h,
+                  width: double.infinity.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: const Color(0xFF672CBC),
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    'Learn Quran and\nRecite once everyday',
-                    style: GoogleFonts.poppins(fontSize: 18, color: text),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 48,
-                  ),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        height: 450,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: const Color(0xFF672CBC)),
-                        child: SvgPicture.asset('assets/svgs/splash.svg'),
+                  child: SvgPicture.asset('assets/svgs/splash.svg'),
+                ),
+                Positioned(
+                  left: 0,
+                  bottom: -50,
+                  right: 0,
+                  child: Center(
+                    child: GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const LayoutScreen(),
+                        ));
+                      },
+                     
+                       
                       ),
-                      Positioned(
-                        left: 0,
-                        bottom: -23,
-                        right: 0,
-                        child: Center(
-                          child: GestureDetector(
-                            behavior: HitTestBehavior.opaque,
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const LayoutScreen(),
-                              ));
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 16),
-                              decoration: BoxDecoration(
-                                  color: orange,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: Text(
-                                'Get Started',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ]),
-          ),
+                    ),
+                  ),
+                
+              ],
+            ),
+          ],
         ),
       ),
     );

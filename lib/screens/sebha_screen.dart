@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/colors/colors.dart';
 import 'package:quran/screens/zaker_screen.dart';
 
 class SebhaScreen extends StatefulWidget {
-  const SebhaScreen({super.key});
+  const SebhaScreen({Key? key}) : super(key: key);
 
   @override
   State<SebhaScreen> createState() => _SebhaScreenState();
@@ -21,7 +19,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
     "الله أكبر",
     "لا حول ولا قوة إلا بالله"
   ];
-   void _incrementCounter() {
+  void _incrementCounter() {
     setState(() {
       _counter++;
       if (_counter == 34) {
@@ -34,105 +32,136 @@ class _SebhaScreenState extends State<SebhaScreen> {
   double _turns = 0.0;
 
   int _counter = 0;
-    int _currentIndex = 0;
+  int _currentIndex = 0;
 
-
-  
-
-  void _ressetCounter(){
+  void _ressetCounter() {
     setState(() {
-      _counter=0;
+      _counter = 0;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
-      appBar: AppBar(
-        backgroundColor: background,
-        automaticallyImplyLeading: false, // بتشيل زرار الباك
-        elevation: 0,
-        title: Row(
-          children: [
-            IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset("assets/svgs/menu-icon.svg")),
-            const SizedBox(
-              width: 24,
-            ),
-            Text(
-              " السبحة الالكترونية",
-              style: GoogleFonts.poppins(fontSize: 30),
-            ),
-            const SizedBox(
-              width: 24,
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        children: [
-           Stack(
-      alignment: Alignment.topCenter,
-      children: [
-         AnimatedRotation(
-              turns: _turns,
-              duration: const Duration(
-                milliseconds: 350,
-              ),
-              child: SizedBox(
-                child: Image.asset(
-                     "assets/images/body_sebha_dark.png",color: Colors.white,
-                    ))
-              ),
-        ]),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:  <Widget>[
-                Text(
-                  ' $_counter',
-                  style: const TextStyle(fontSize: 80, color: Colors.white),
+          backgroundColor: background,
+          appBar: AppBar(
+            backgroundColor: background,
+            automaticallyImplyLeading: false, // بتشيل زرار الباك
+            elevation: 0,
+            title: Row(
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: SvgPicture.asset(
+                      "assets/svgs/menu-icon.svg",
+                    )),
+                 SizedBox(
+                  width: 24.w,
                 ),
                 Text(
-                  _azkar[_currentIndex],
-                  style:const TextStyle(fontSize: 50, color: Colors.white),
+                  " السبحة الالكترونية",
+                  style: TextStyle(fontSize: 20.sp,color: Colors.blueGrey),
+                ),
+                const SizedBox(
+                  width: 24,
                 ),
               ],
             ),
           ),
-        ],
-      ),
-      floatingActionButton: Stack(
-        children:  <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 31),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: FloatingActionButton.extended(backgroundColor: Colors.deepPurpleAccent,onPressed:() {
-                _ressetCounter();
-              }, label: const Text('تصفير',style: TextStyle(fontSize: 20),),
-              icon: const Icon(Icons.settings_backup_restore,),),
-            ),
+          body: ListView(
+            children: [
+              Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  AnimatedRotation(
+                    turns: _turns,
+                    duration: const Duration(
+                      milliseconds: 350,
+                    ),
+                    child: SizedBox(
+                      child: Image.asset(
+                        "assets/images/body_sebha_dark.png",
+                        color: Colors.white,
+                        width: 150,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Text(
+                        ' $_counter',
+                        style: TextStyle(fontSize: 80.sp, color: Colors.white),
+                      ),
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.only(right: 20.sp),
+                      child: Text(
+                        _azkar[_currentIndex],
+                        style: TextStyle(fontSize: 30.sp, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              
+            ],
           ),
-          Align(
-            alignment: const Alignment(0.1,0.7),
-            child:FloatingActionButton.extended(backgroundColor: Colors.deepPurpleAccent,onPressed:() {
-                _incrementCounter();
-                 _turns += 0.03;
-              }, label: const Text('تسبيح',style: TextStyle(fontSize: 20),),
-              icon: const Icon(Icons.fingerprint,),), 
+          floatingActionButton: Stack(
+            children: <Widget>[
+              Padding(
+                padding:  EdgeInsets.only(left:20.sp ),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: FloatingActionButton.extended(
+                    backgroundColor: Colors.deepPurpleAccent,
+                    onPressed: () {
+                      _ressetCounter();
+                    },
+                    label:  Text(
+                      'تصفير',
+                      style: TextStyle(fontSize: 20.sp),
+                    ),
+                    icon: const Icon(Icons.settings_backup_restore),
+                  ),
+                ),
+              ),
+              Align(
+                alignment:  Alignment(0.2.sp, 0.7.sp),
+                child: FloatingActionButton.extended(
+                  backgroundColor: Colors.deepPurpleAccent,
+                  onPressed: () {
+                    _incrementCounter();
+                    _turns += 0.03;
+                  },
+                  label: Text(
+                    'تسبيح',
+                    style: TextStyle(fontSize: 20.sp),
+                  ),
+                  icon: const Icon(Icons.fingerprint),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton.extended(
+                  backgroundColor: Colors.deepPurpleAccent,
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Zaker()));
+                  },
+                  label: Text(
+                    'دعاء',
+                    style: TextStyle(fontSize: 20.sp),
+                  ),
+                  icon: const Icon(Icons.book),
+                ),
+              )
+            ],
           ),
-          Align(
-            alignment:Alignment.bottomRight,
-            child: FloatingActionButton.extended(backgroundColor: Colors.deepPurpleAccent,onPressed:() {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Zaker()));
-              }, label: const Text('دعاء',style: TextStyle(fontSize: 20),),
-              icon: const Icon(Icons.book,),),
-
-          )
-        ],
-      ),
     );
   }
 }

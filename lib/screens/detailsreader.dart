@@ -10,15 +10,18 @@ import 'package:quran/models/surah.dart';
 
 import 'package:http/http.dart' as http;
 
-class DetailScreen extends StatefulWidget {
+class DetailsScreen extends StatefulWidget {
   final int noSurat;
-  const DetailScreen({Key? key, required this.noSurat}) : super(key: key);
+
+  const DetailsScreen({Key? key, required this.noSurat}) : super(key: key);
 
   @override
-  State<DetailScreen> createState() => _DetailScreenState();
+  State<DetailsScreen> createState() => _DetailScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _DetailScreenState extends State<DetailsScreen> {
+  double audioProgress = 0.0;
+
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
   Future<List<String>> fetchAudioUrls() async {
@@ -41,6 +44,11 @@ class _DetailScreenState extends State<DetailScreen> {
   Future<Surah> _getDetailSurah() async {
     final data =
         await Dio().get("https://equran.id/api/surat/${widget.noSurat}");
+    audioPlayer.onAudioPositionChanged.listen((Duration position) {
+      setState(() {
+        audioProgress = position.inMilliseconds.toDouble();
+      });
+    });
     return Surah.fromJson(json.decode(data.toString()));
   }
 
@@ -66,13 +74,36 @@ class _DetailScreenState extends State<DetailScreen> {
             ],
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ListView.separated(
-                itemBuilder: (context, index) => _ayatItem(
-                    surah: surah,
-                    ayat: surah.ayat!
-                        .elementAt(index + (widget.noSurat == 1 ? 1 : 0))),
-                itemCount: surah.jumlahAyat + (widget.noSurat == 1 ? -1 : 0),
-                separatorBuilder: (context, index) => Container(),
+              child: Column(
+                children: [
+                  SizedBox(height: 20.h,),
+                  Container(
+                    child: IconButton(
+                      onPressed: () async {
+                        if (isPlaying) {
+                          audioPlayer.pause();
+                        } else {
+                          final audioUrl = surah
+                              .audio; // استخدم الرابط الصحيح للسورة المحددة
+                          audioPlayer.play(audioUrl, isLocal: true);
+                        }
+                        setState(() {
+                          isPlaying = !isPlaying;
+                        });
+                      },
+                      icon: Icon(
+                        isPlaying ? Icons.pause : Icons.play_arrow_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  LinearProgressIndicator(
+                    value: audioProgress/surah.audio.length, // تحديث قيمة التقدم
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.white),
+                    backgroundColor: Colors.grey,
+                  ),
+                ],
               ),
             ),
           ),
@@ -90,40 +121,17 @@ class _DetailScreenState extends State<DetailScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
                   color: gray, borderRadius: BorderRadius.circular(10)),
-              child: Row(
+              child: const Row(
                 children: [
-                  Container(
-                    width: 27,
-                    height: 27,
-                    decoration: BoxDecoration(
-                        color: primary,
-                        borderRadius: BorderRadius.circular(27 / 2)),
-                    child: Center(
-                      child: Text(
-                        '${ayat.nomor}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
+                   Spacer(),
+                 
                 ],
               ),
             ),
-            const SizedBox(
-              height: 24,
+             SizedBox(
+              height: 24.h,
             ),
-            Text(
-              ayat.ar,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18.sp,
-              ),
-              textAlign: TextAlign.right,
-            ),
-            SizedBox(
+             SizedBox(
               height: 16.h,
             ),
           ],
@@ -134,7 +142,7 @@ class _DetailScreenState extends State<DetailScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Stack(children: [
           Container(
-            height: 257.h,
+            height: 257,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 gradient: const LinearGradient(
@@ -152,8 +160,8 @@ class _DetailScreenState extends State<DetailScreen> {
                     ])),
           ),
           Positioned(
-              bottom: 0.sp,
-              right: 0.sp,
+              bottom: 0,
+              right: 0,
               child: Opacity(
                   opacity: .2,
                   child: SvgPicture.asset(
@@ -167,13 +175,13 @@ class _DetailScreenState extends State<DetailScreen> {
               children: [
                 Text(
                   surah.namaLatin,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
-                      fontSize: 26),
+                      fontSize: 26.sp),
                 ),
                  SizedBox(
-                  height: 4.sp,
+                  height: 4.h,
                 ),
                 Divider(
                   color: Colors.white.withOpacity(.35),
@@ -190,18 +198,18 @@ class _DetailScreenState extends State<DetailScreen> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(
-                      width: 5,
+                     SizedBox(
+                      width: 5.w,
                     ),
                     Container(
-                      width: 4,
-                      height: 4,
+                      width: 4.w,
+                      height: 4.h,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(2),
                           color: Colors.white),
                     ),
-                    const SizedBox(
-                      width: 5,
+                     SizedBox(
+                      width: 5.w,
                     ),
                     Text(
                       "${surah.jumlahAyat} Ayat",
@@ -212,7 +220,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                 SizedBox(
                   height: 32.h,
                 ),
                 SvgPicture.asset('assets/svgs/bismillah.svg')
@@ -231,12 +239,13 @@ class _DetailScreenState extends State<DetailScreen> {
           IconButton(
               onPressed: (() => Navigator.of(context).pop()),
               icon: SvgPicture.asset('assets/svgs/back-icon.svg')),
-          SizedBox(
+           SizedBox(
             width: 24.w,
           ),
           Text(
             surah.nama,
-            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+            style:
+                TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
           IconButton(

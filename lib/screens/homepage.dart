@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quran/colors/colors.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:quran/screens/constants.dart';
-import 'package:quran/tabs/hijp_tab.dart';
-import 'package:quran/tabs/page_tab.dart';
+
 import 'package:quran/tabs/surah_tab.dart';
 
 class HomeScreen extends StatefulWidget {
-  
   const HomeScreen({super.key});
 
   @override
@@ -16,68 +13,60 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-     
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
-       
         backgroundColor: background,
         appBar: AppBar(
-        backgroundColor: background,
-        automaticallyImplyLeading: false, // بتشيل زرار الباك
-         elevation: 0,
-        title: Row(
-          children: [
-            IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset("assets/svgs/menu-icon.svg")),
-            const SizedBox(
-              width: 24,
-            ),
-            Text(
-              "القرآن الكريم",
-              style: GoogleFonts.poppins(fontSize: 30),
-            ),
-          
-            const SizedBox(
-              width: 24,
-            ),
-          ],
+          backgroundColor: background,
+          automaticallyImplyLeading: false, // بتشيل زرار الباك
+          elevation: 0,
+          title: Row(
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset("assets/svgs/menu-icon.svg")),
+               SizedBox(
+                width: 24.w,
+              ),
+              Text(
+                "القرآن الكريم",
+                style: TextStyle(fontSize: 30.sp, color: Colors.blueGrey),
+              ),
+               SizedBox(
+                width: 24.w,
+              ),
+            ],
+          ),
         ),
-      ),
-        body:  DefaultTabController(
+        body: DefaultTabController(
           length: 1,
-          
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 25,
             ),
             child: NestedScrollView(
-              
                 headerSliverBuilder: (context, innerBoxIsScrolled) => [
                       SliverToBoxAdapter(
                         child: _greeting(),
                       ),
-                    
                     ],
-                body:  const TabBarView(children: [SurahTab(),HijpTab(),PageTab(),],)),
+                body: const TabBarView(
+                  children: [
+                    SurahTab(),
+                  ],
+                )),
           ),
         ));
   }
-
-
 
   Column _greeting() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-      
         const SizedBox(
           height: 10,
         ),
-      
         const SizedBox(
           height: 10,
         ),
@@ -93,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Stack(
       children: [
         Container(
-          height: 131,
+          height: 131.h,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft, // بتتحكم في مواقع الالوان
@@ -128,15 +117,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
+               SizedBox(
+                height: 20.h,
               ),
-              const Text(
+               Text(
                 "Al-Fatihah",
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 18.sp, color: Colors.white),
               ),
-              const SizedBox(
-                height: 4,
+               SizedBox(
+                height: 4.h,
               ),
               const Text(
                 "Ayat no : 1",
@@ -148,6 +137,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
-
- 
 }

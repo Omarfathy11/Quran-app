@@ -11,6 +11,7 @@ class Zaker extends StatelessWidget {
         backgroundColor: background,
         appBar: AppBar(
           backgroundColor: background,
+          
         ),
         body: Center(
           child: Container(

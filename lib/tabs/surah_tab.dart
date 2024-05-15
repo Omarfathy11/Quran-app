@@ -17,7 +17,7 @@ class SurahTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<Surah>>(
         future: _getSearchList(),
-        initialData: [],
+        initialData: const [],
         builder: ((context, snapshot) {
           if (!snapshot.hasData) {
             return Container();

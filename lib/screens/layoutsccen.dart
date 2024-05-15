@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quran/colors/colors.dart';
 import 'package:quran/screens/hadith_screen.dart';
 import 'package:quran/screens/homepage.dart';
+import 'package:quran/screens/homereader.dart';
 import 'package:quran/screens/sebha_screen.dart';
 
 class LayoutScreen extends StatefulWidget {
@@ -18,6 +17,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
   int selctedindex = 0;
      List<Widget> widgetspages = const[
         HomeScreen(),
+        NewPage(),
           HadithScreen(),
           SebhaScreen(),
       ];
@@ -44,6 +44,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
         items: [
           _bottomBarItem(icon: "assets/svgs/quran-icon.svg", label: "quran",),
+                    _bottomBarItem(icon: "assets/svgs/nomor-surah.svg", label: "reader"),
+
           _bottomBarItem(icon: "assets/svgs/doa-icon.svg", label: "Hadith",),
           _bottomBarItem(icon: "assets/svgs/pray-icon.svg", label: "prayer"),
           
