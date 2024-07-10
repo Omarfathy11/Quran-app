@@ -22,16 +22,14 @@ class HadithScreen extends StatelessWidget {
                 onPressed: () {},
                 icon: SvgPicture.asset("assets/svgs/menu-icon.svg")),
             const SizedBox(
-              width: 24,
+              width: 10,
             ),
             Text(
-              " الحديث الشريف",
-              style: TextStyle(fontSize: 30.sp,color:  Colors.blueGrey),
+              " الاحاديث الأربعين النووية",
+              style: TextStyle(fontSize: 30.sp,color: Colors.blueGrey),
             ),
           
-             SizedBox(
-              width: 24.w,
-            ),
+             
           ],
         ),
       ),

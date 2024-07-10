@@ -82,7 +82,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
                       child: Image.asset(
                         "assets/images/body_sebha_dark.png",
                         color: Colors.white,
-                        width: 150,
+                        width: 200.w,
                       ),
                     ),
                   ),
@@ -131,7 +131,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
                 ),
               ),
               Align(
-                alignment:  Alignment(0.2.sp, 0.7.sp),
+                alignment:  Alignment(0.1.sp, 0.7.sp),
                 child: FloatingActionButton.extended(
                   backgroundColor: Colors.deepPurpleAccent,
                   onPressed: () {

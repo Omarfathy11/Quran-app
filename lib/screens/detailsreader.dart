@@ -44,7 +44,7 @@ class _DetailScreenState extends State<DetailsScreen> {
   Future<Surah> _getDetailSurah() async {
     final data =
         await Dio().get("https://equran.id/api/surat/${widget.noSurat}");
-    audioPlayer.onAudioPositionChanged.listen((Duration position) {
+    audioPlayer.onPositionChanged.listen((Duration position) {
       setState(() {
         audioProgress = position.inMilliseconds.toDouble();
       });
@@ -85,7 +85,7 @@ class _DetailScreenState extends State<DetailsScreen> {
                         } else {
                           final audioUrl = surah
                               .audio; // استخدم الرابط الصحيح للسورة المحددة
-                          audioPlayer.play(audioUrl, isLocal: true);
+                          audioPlayer.play(UrlSource(audioUrl), );
                         }
                         setState(() {
                           isPlaying = !isPlaying;
