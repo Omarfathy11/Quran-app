@@ -3,12 +3,14 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/services.dart'; // لإضافة الحافظة
 import 'package:flutter_svg/svg.dart';
-import 'package:quran/colors/colors.dart';
+import 'package:quran/core/colors/colors.dart';
 import 'package:quran/models/ayat.dart';
-import 'package:quran/models/surah.dart';
 
 import 'package:http/http.dart' as http;
+
+import '../Home/domain/entites/surah.dart';
 
 class DetailScreen extends StatefulWidget {
   final int noSurat;
@@ -21,10 +23,10 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   final audioPlayer = AudioPlayer();
   bool isPlaying = false;
+
   Future<List<String>> fetchAudioUrls() async {
     try {
-      final response =
-          await http.get(Uri.parse('https://equran.id/api/surat/'));
+      final response = await http.get(Uri.parse('https://equran.id/api/surat/'));
       if (response.statusCode == 200) {
         final List<dynamic> surahs = json.decode(response.body);
         final List<String> audioUrls =
@@ -108,6 +110,20 @@ class _DetailScreenState extends State<DetailScreen> {
                       ),
                     ),
                   ),
+                  const Spacer(),
+                  // إضافة زر النسخ
+                  IconButton(
+                    icon: const Icon(Icons.copy, color: Colors.white),
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: ayat.ar));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('تم نسخ الآية: ${ayat.nomor}'),
+                        duration: const Duration(seconds: 1),
+                      ));
+                    },
+                  ),
+                  // إضافة زر المشاركة
+                
                 ],
               ),
             ),
@@ -172,7 +188,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       fontWeight: FontWeight.w500,
                       fontSize: 26),
                 ),
-                 SizedBox(
+                SizedBox(
                   height: 4.sp,
                 ),
                 Divider(
@@ -236,12 +252,10 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
           Text(
             surah.nama,
-            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const Spacer(),
-          IconButton(
-              onPressed: (() => {}),
-              icon: SvgPicture.asset('assets/svgs/search-icon.svg')),
         ]),
       );
 }

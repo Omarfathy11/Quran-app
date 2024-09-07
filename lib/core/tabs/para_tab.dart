@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:quran/colors/colors.dart';
-import 'package:quran/models/surah.dart';
-import 'package:quran/screens/details.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quran/core/colors/colors.dart';
+import 'package:quran/features/screens/detailsreader.dart';
 
-class SurahTab extends StatelessWidget {
-  const SurahTab({super.key});
+import '../../features/Home/domain/entites/surah.dart';
+
+class ParaTab extends StatelessWidget {
+  const ParaTab({super.key});
+
 
   Future<List<Surah>> _getSearchList() async {
     String data = await rootBundle.loadString("assets/datas/list-surah.json");
@@ -17,7 +19,7 @@ class SurahTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<List<Surah>>(
         future: _getSearchList(),
-        initialData: const [],
+        initialData:const [],
         builder: ((context, snapshot) {
           if (!snapshot.hasData) {
             return Container();
@@ -36,7 +38,7 @@ class SurahTab extends StatelessWidget {
   Widget _surahItem({required BuildContext context,required Surah surah}) => GestureDetector(behavior: HitTestBehavior.opaque,
 
     onTap: (){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailScreen(noSurat: surah.nomor,)));
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailsScreen(noSurat: surah.nomor,)));
     },
     child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -73,9 +75,9 @@ class SurahTab extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        surah.tempatTurun.name,
+                        'الشيخ مشاري العفاسي',
                         style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             color: text,
                             fontWeight: FontWeight.w500),
                       ),
@@ -93,13 +95,7 @@ class SurahTab extends StatelessWidget {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        "${surah.jumlahAyat} Ayat",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: text,
-                            fontWeight: FontWeight.w500),
-                      ),
+                    
                     ],
                   )
                 ],

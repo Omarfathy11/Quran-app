@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:quran/colors/colors.dart';
-import 'package:quran/tabs/para_tab.dart';
+import 'package:quran/core/colors/colors.dart';
+import 'package:quran/core/tabs/para_tab.dart';
 
 class NewPage extends StatefulWidget {
   const NewPage({super.key});
@@ -31,7 +31,7 @@ class _NewPageState extends State<NewPage> {
               ),
               Text(
                 "القرآن الكريم",
-                style: TextStyle(fontSize: 30.sp, color: Colors.blueGrey),
+                style: TextStyle(fontSize: 30.sp, color: text),
               ),
               const SizedBox(
                 width: 24,

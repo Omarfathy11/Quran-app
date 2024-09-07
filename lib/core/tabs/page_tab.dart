@@ -1,38 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:quran/colors/colors.dart';
 
-class HadithScreen extends StatelessWidget {
-  const HadithScreen({super.key});
+import 'package:quran/core/colors/colors.dart';
+
+class PageTab extends StatelessWidget {
+  const PageTab({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-         appBar: AppBar(
-        backgroundColor: background,
-        automaticallyImplyLeading: false, // بتشيل زرار الباك
-         elevation: 0,
-        title: Row(
-          children: [
-            IconButton(
-                onPressed: () {},
-                icon: SvgPicture.asset("assets/svgs/menu-icon.svg")),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              " الاحاديث الأربعين النووية",
-              style: TextStyle(fontSize: 30.sp,color: Colors.blueGrey),
-            ),
-          
-             
-          ],
-        ),
-      ),
            backgroundColor: background,
 
         body: FutureBuilder(
@@ -59,13 +37,12 @@ class HadithScreen extends StatelessWidget {
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Colors.white,
-                                      
                                     ),
                                     child: Text('${hadithdata[index]['number']}',style: const TextStyle(color: Colors.black, fontSize: 15),),
                                     
                                   ),
                                   Text('${hadithdata[index]['arab']}',style: const TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.normal),),
-                                    SizedBox(height: 12.h,),
+                                   const SizedBox(height: 12,),
                               ],
                               
                             ),
